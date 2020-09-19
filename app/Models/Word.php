@@ -9,7 +9,5 @@ class Word extends Model
 {
   use HasFactory;
 
-  protected $casts = [
-    'translation' => 'array'
-  ];
+  protected $fillable = ['title', 'category', 'meanings', 'user_id'];
 }

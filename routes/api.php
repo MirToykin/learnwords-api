@@ -27,4 +27,5 @@ Route::post('register',[UsersController::class, 'register']);
 // доступны с токеном
 Route::group(['middleware' => 'auth:api'], function(){
   Route::get('words/{category}/{user_id}',[WordsController::class, 'getWords']);
+  Route::post('words',[WordsController::class, 'addWord']);
 });
