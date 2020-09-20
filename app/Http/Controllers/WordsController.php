@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Word;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Mockery\Exception;
 use function PHPUnit\Framework\countOf;
 
 class WordsController extends Controller
@@ -44,5 +45,27 @@ class WordsController extends Controller
     $input = $request->all();
     $word = Word::create($input);
     return response()->json(['word'=>$word], 201);
+  }
+
+  /**
+   * Edit word api
+   *
+   * @param Request $request
+   * @param $id
+   * @return \Illuminate\Http\JsonResponse
+   */
+
+  public function editWord(Request $request, $id) {
+    try {
+      $word = Word::find($id);
+      $isUpdated = $word->update($request->all());
+      if ($isUpdated) {
+        return response()->json(['word'=>$word], 200);
+      } else {
+        throw new Exception('Не удалось внести изменения', 400);
+      }
+    } catch (Exception $e) {
+      return response()->json(['error'=>$e]);
+    }
   }
 }
