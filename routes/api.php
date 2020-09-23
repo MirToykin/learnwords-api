@@ -29,4 +29,5 @@ Route::group(['middleware' => 'auth:api'], function(){
   Route::get('words/{category}/{user_id}',[WordsController::class, 'getWords']);
   Route::post('words',[WordsController::class, 'addWord']);
   Route::patch('words/{id}',[WordsController::class, 'editWord']);
+  Route::delete('words/{id}',[WordsController::class, 'deleteWord']);
 });

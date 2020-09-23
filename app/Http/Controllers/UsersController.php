@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Dotenv\Exception\ValidationException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,22 +34,29 @@ class UsersController extends Controller
    */
   public function register(Request $request)
   {
-    try {
-      $this->validate($request, [
-        'name' => 'required',
-        'email' => 'required|email',
-        'password' => 'required',
-        'c_password' => 'required|same:password',
-      ]);
-    } catch (\Illuminate\Validation\ValidationException $e) {
-      return response()->json(['error'=>$e], 401);
-    }
+    $messages = [
+      'name.required' => 'Введите имя',
+      'email.required' => 'Необходимо указать Email',
+      'email.email' => 'Некорректный Email',
+      'email.unique' => 'Данный Email уже занят',
+      'password.required' => 'Введите пароль',
+      'password_confirmation.same' => 'Пароли не совпадают',
+    ];
+    $validator = Validator::make($request->all(), [
+      'name' => 'required|string',
+      'email' => 'required|email|unique:users',
+      'password' => 'required|string',
+      'password_confirmation' => 'required|string|same:password'
+    ], $messages);
 
+    if ($validator->fails()) {
+      return response()->json(['message' => $validator->errors()->first(), 'status' => false], 500);
+    }
     $input = $request->all();
     $input['password'] = bcrypt($input['password']);
     $user = User::create($input);
     $user['token'] =  $user->createToken('LWToken')-> accessToken;
-    return response()->json(['user'=>$user], $this-> successStatus);
+    return response()->json(['user'=>$user], 201);
   }
 //  /**
 //   * details api

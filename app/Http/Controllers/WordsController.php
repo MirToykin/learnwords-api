@@ -68,4 +68,25 @@ class WordsController extends Controller
       return response()->json(['error'=>$e]);
     }
   }
+
+  /**
+   * Delete word api
+   *
+   * @param $id
+   * @return \Illuminate\Http\JsonResponse
+   */
+
+  public function deleteWord($id) {
+    try {
+      $word = Word::find($id);
+
+      if ($word->delete() === 1) {
+        return response()->json(['success'=>'Запись успешно удалена'], 204);
+      } else {
+        throw new Exception('Не удалось удалить запись', 400);
+      }
+    } catch (Exception $e) {
+      return response()->json(['error'=>$e]);
+    }
+  }
 }

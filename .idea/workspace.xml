@@ -21,7 +21,9 @@
   <component name="ChangeListManager">
     <list default="true" id="cb7e9530-f2c2-457f-af81-7220d34e0baa" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UsersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UsersController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/WordsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/WordsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -64,7 +66,10 @@
       <workItem from="1600277882339" duration="8237000" />
       <workItem from="1600451785663" duration="12309000" />
       <workItem from="1600501696128" duration="5024000" />
-      <workItem from="1600604749260" duration="3550000" />
+      <workItem from="1600604749260" duration="6319000" />
+      <workItem from="1600708068118" duration="5465000" />
+      <workItem from="1600794352633" duration="1520000" />
+      <workItem from="1600884695111" duration="4742000" />
     </task>
     <servers />
   </component>
@@ -92,9 +97,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1600279031834" />
-    <state x="616" y="240" key="run.anything.popup" timestamp="1600279890238">
+    <state x="616" y="240" key="run.anything.popup" timestamp="1600713384652">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1600279890238" />
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1600713384652" />
   </component>
 </project>
