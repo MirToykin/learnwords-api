@@ -30,4 +30,5 @@ Route::group(['middleware' => 'auth:api'], function(){
   Route::post('words',[WordsController::class, 'addWord']);
   Route::patch('words/{id}',[WordsController::class, 'editWord']);
   Route::delete('words/{id}',[WordsController::class, 'deleteWord']);
+  Route::post('logout',[UsersController::class, 'logout']);
 });

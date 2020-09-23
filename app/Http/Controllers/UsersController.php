@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Mockery\Exception;
 
 class UsersController extends Controller
 {
@@ -57,6 +58,19 @@ class UsersController extends Controller
     $user = User::create($input);
     $user['token'] =  $user->createToken('LWToken')-> accessToken;
     return response()->json(['user'=>$user], 201);
+  }
+
+  public function logout()
+  {
+    try {
+      if (Auth::check()) {
+        Auth::user()->OauthAccessToken()->delete();
+        return response()->json(['message'=>'successfully logged out'], 201);
+      }
+    } catch (Exception $e) {
+      return response()->json(['error'=>$e], 400);
+    }
+
   }
 //  /**
 //   * details api
