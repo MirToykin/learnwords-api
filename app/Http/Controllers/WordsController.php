@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Word;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Mockery\Exception;
 use function PHPUnit\Framework\countOf;
 
@@ -31,15 +32,19 @@ class WordsController extends Controller
    */
   public function addWord(Request $request)
   {
-    try {
-      $this->validate($request, [
-        'title' => 'required',
-        'meanings' => 'required',
-        'category' => 'required',
-        'user_id' => 'required',
-      ]);
-    } catch (\Illuminate\Validation\ValidationException $e) {
-      return response()->json(['error'=>$e], 401);
+    $messages = [
+      'title.required' => 'Необходимо ввести слово',
+      'meanings.required' => 'Необходимо ввести значения',
+    ];
+    $validator = Validator::make($request->all(), [
+      'title' => 'required|string',
+      'meanings' => 'required|string',
+      'category' => 'required|string',
+      'user_id' => 'required'
+    ], $messages);
+
+    if ($validator->fails()) {
+      return response()->json(['message' => $validator->errors()->first(), 'status' => false], 500);
     }
 
     $input = $request->all();
