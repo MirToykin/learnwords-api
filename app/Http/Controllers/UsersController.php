@@ -16,7 +16,20 @@ class UsersController extends Controller
    *
    * @return \Illuminate\Http\JsonResponse
    */
-  public function login(){
+  public function login(Request $request){
+    $messages = [
+      'email.required' => 'Необходимо указать Email',
+      'password.required' => 'Введите пароль',
+    ];
+    $validator = Validator::make($request->all(), [
+      'email' => 'required',
+      'password' => 'required|string',
+    ], $messages);
+
+    if ($validator->fails()) {
+      return response()->json(['message' => $validator->errors()->first(), 'status' => false], 400);
+    }
+
     if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
       $user = Auth::user();
       $user['token'] =  $user->createToken('LWToken')-> accessToken;
@@ -41,6 +54,7 @@ class UsersController extends Controller
       'email.email' => 'Некорректный Email',
       'email.unique' => 'Данный Email уже занят',
       'password.required' => 'Введите пароль',
+      'password_confirmation.required' => 'Введите пароль повторно',
       'password_confirmation.same' => 'Пароли не совпадают',
     ];
     $validator = Validator::make($request->all(), [

@@ -16,8 +16,8 @@ class CreateWordsTable extends Migration
     Schema::create('words', function (Blueprint $table) {
       $table->id();
       $table->string('category');
-      $table->string('title');
-      $table->string('meanings', 200);
+      $table->text('title');
+      $table->text('meanings');
       $table->integer('user_id');
       $table->timestamps();
     });
