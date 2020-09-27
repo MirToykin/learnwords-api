@@ -65,7 +65,7 @@ class UsersController extends Controller
     try {
       if (Auth::check()) {
         Auth::user()->OauthAccessToken()->delete();
-        return response()->json(['message'=>'successfully logged out'], 201);
+        return response()->json(['message'=>'successfully logged out'], 200);
       }
     } catch (Exception $e) {
       return response()->json(['error'=>$e], 400);

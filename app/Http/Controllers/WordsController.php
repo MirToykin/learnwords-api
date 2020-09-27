@@ -47,6 +47,22 @@ class WordsController extends Controller
       return response()->json(['message' => $validator->errors()->first(), 'status' => false], 500);
     }
 
+    $title = $request['title'];
+    $uid = $request['user_id'];
+//    $cat = $request['category'];
+//    $set = $cat === 'next' ? 'На очереди' : $cat === 'current' ? 'Текущий набор' : 'Изученные';
+//
+//    if (Word::where('user_id', $uid)->where('title', $title)->count() > 0) {
+//      return response()->json(['message'=>'Слово '.$title.' уже есть в наборе '.$set], 400);
+//    }
+
+    $existingWord = Word::where('user_id', $uid)->where('title', $title)->first();
+    if (isset($existingWord)) {
+      $cat = $existingWord['category'];
+      $set = $cat === 'next' ? 'На очереди' : $cat === 'current' ? 'Текущий набор' : 'Изученные';
+      return response()->json(['message'=>'Слово "'.strtolower ($title).'" уже есть в наборе "'.$set.'"'], 400);
+    }
+
     $input = $request->all();
     $word = Word::create($input);
     return response()->json(['word'=>$word], 201);
