@@ -54,13 +54,14 @@ class UsersController extends Controller
       'email.email' => 'Некорректный Email',
       'email.unique' => 'Данный Email уже занят',
       'password.required' => 'Введите пароль',
+      'password.min' => 'Пароль должен быть не менее 6 символов длиной',
       'password_confirmation.required' => 'Введите пароль повторно',
-      'password_confirmation.same' => 'Пароли не совпадают',
+      'password_confirmation.same' => 'Пароли не совпадают'
     ];
     $validator = Validator::make($request->all(), [
       'name' => 'required|string',
       'email' => 'required|email|unique:users',
-      'password' => 'required|string',
+      'password' => 'required|string|min:6',
       'password_confirmation' => 'required|string|same:password'
     ], $messages);
 
