@@ -59,7 +59,18 @@ class WordsController extends Controller
     $existingWord = Word::where('user_id', $uid)->where('title', $title)->first();
     if (isset($existingWord)) {
       $cat = $existingWord['category'];
-      $set = $cat === 'next' ? 'На очереди' : $cat === 'current' ? 'Текущий набор' : 'Изученные';
+//      $set = $cat === 'next' ? 'На очереди' : $cat === 'current' ? 'Текущий набор' : 'Изученные';
+      $set = '';
+      switch ($cat) {
+        case 'next':
+          $set = 'На очереди';
+          break;
+        case 'current':
+          $set = 'Текущий набор';
+          break;
+        case 'done':
+          $set = 'Изученные';
+      }
       return response()->json(['message'=>'Слово "'.strtolower ($title).'" уже есть в наборе "'.$set.'"'], 400);
     }
 
